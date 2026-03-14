@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - NOVA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, sans-serif;
+        }
+        body {
+            background: #0a0f1e;
+            color: white;
+            padding: 10px 10px 70px 10px;
+        }
+        .app {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #2a3a5a;
+            margin-bottom: 20px;
+        }
+        .back { color: gold; font-size: 24px; cursor: pointer; }
+        .title { 
+            color: gold; 
+            font-size: 22px; 
+            font-weight: bold;
+        }
+
+        /* Profile Card */
+        .profile-card {
+            background: #1e2a47;
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            border: 2px solid gold;
+            text-align: center;
+        }
+        .avatar {
+            width: 80px;
+            height: 80px;
+            background: gold;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: black;
+        }
+        .username {
+            color: gold;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .user-id {
+            color: #8a9bb5;
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+        .level-badge {
+            background: #2a3a5a;
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            color: gold;
+            font-size: 13px;
+        }
+
+        /* Balance Cards */
+        .balance-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .balance-card {
+            background: #1e2a47;
+            padding: 15px;
+            border-radius: 15px;
+            border: 1px solid gold;
+            text-align: center;
+        }
+        .balance-label {
+            color: #8a9bb5;
+            font-size: 11px;
+            margin-bottom: 5px;
+        }
+        .balance-value {
+            color: gold;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        /* Withdraw Section */
+        .withdraw-section {
+            background: #1e2a47;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 2px solid #ff6b6b;
+        }
+        .section-title {
+            color: gold;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .withdraw-title {
+            color: #ff6b6b;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .withdraw-input {
+            width: 100%;
+            padding: 15px;
+            background: #2a3a5a;
+            border: 1px solid #3a4a6a;
+            border-radius: 10px;
+            color: white;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+        .withdraw-input:focus {
+            outline: none;
+            border-color: gold;
+        }
+        .withdraw-btn {
+            width: 100%;
+            padding: 15px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .withdraw-btn:hover {
+            background: #ff5252;
+            transform: scale(1.02);
+        }
+
+        /* Referral Section */
+        .referral-section {
+            background: #1e2a47;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 2px solid gold;
+        }
+        .referral-title {
+            color: gold;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .referral-box {
+            background: #2a3a5a;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .referral-link-box {
+            background: #1e2a47;
+            padding: 15px;
+            border-radius: 10px;
+            color: #4a90e2;
+            font-size: 14px;
+            word-break: break-all;
+            margin: 15px 0;
+            border: 1px solid gold;
+            font-family: monospace;
+        }
+        .referral-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-number {
+            color: gold;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .stat-label {
+            color: #8a9bb5;
+            font-size: 11px;
+            margin-top: 5px;
+        }
+        .copy-btn {
+            background: gold;
+            color: black;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.3s;
+        }
+        .copy-btn:hover {
+            background: #e6b800;
+            transform: scale(1.02);
+        }
+
+        /* Recent Activity */
+        .activity-section {
+            background: #1e2a47;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+        .activity-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #2a3a5a;
+        }
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+        .activity-info h4 {
+            color: gold;
+            font-size: 14px;
+            margin-bottom: 3px;
+        }
+        .activity-time {
+            color: #8a9bb5;
+            font-size: 10px;
+        }
+        .activity-status {
+            color: #4caf50;
+        }
+
+        /* Bottom Nav */
+        .nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            max-width: 400px;
+            margin: 0 auto;
+            background: #1e2a47;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+            border-top: 2px solid gold;
+        }
+        .nav-item {
+            text-align: center;
+            color: #8a9bb5;
+            font-size: 11px;
+            cursor: pointer;
+        }
+        .nav-item.active { color: gold; }
+        .nav-item span { display: block; font-size: 18px; }
+
+        /* Success Message */
+        .success-message {
+            background: #4caf50;
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 10px 0;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <!-- Header -->
+        <div class="header">
+            <span class="back" onclick="goBack()">←</span>
+            <div class="title">My Profile</div>
+        </div>
+
+        <!-- Profile Card -->
+        <div class="profile-card">
+            <div class="avatar">👤</div>
+            <div class="username">abduljan</div>
+            <div class="user-id">UID: M085F3BB7</div>
+            <span class="level-badge">Level 1 • 190 Points</span>
+        </div>
+
+        <!-- Balance Cards -->
+        <div class="balance-grid">
+            <div class="balance-card">
+                <div class="balance-label">Wallet Balance</div>
+                <div class="balance-value">$345.72</div>
+            </div>
+            <div class="balance-card">
+                <div class="balance-label">Locked Balance</div>
+                <div class="balance-value">$21.5K</div>
+            </div>
+            <div class="balance-card">
+                <div class="balance-label">Total Earned</div>
+                <div class="balance-value">$197.72</div>
+            </div>
+            <div class="balance-card">
+                <div class="balance-label">Total Staked</div>
+                <div class="balance-value">$2.56K</div>
+            </div>
+        </div>
+
+        <!-- Withdraw Section -->
+        <div class="withdraw-section">
+            <div class="withdraw-title">💰 Withdraw Funds</div>
+            
+            <input type="number" class="withdraw-input" id="withdrawAmount" placeholder="Enter amount (USD)">
+            
+            <select class="withdraw-input" id="withdrawMethod">
+                <option value="">Select Network</option>
+                <option value="BEP20">BEP20 (BSC)</option>
+                <option value="TRC20">TRC20 (TRON)</option>
+                <option value="SOLANA">SOLANA</option>
+            </select>
+            
+            <input type="text" class="withdraw-input" id="withdrawAddress" placeholder="Enter wallet address">
+            
+            <button class="withdraw-btn" onclick="withdrawFunds()">Process Withdrawal</button>
+            
+            <div class="success-message" id="withdrawSuccess">
+                ✅ Withdrawal request submitted!
+            </div>
+        </div>
+
+        <!-- Referral Section -->
+        <div class="referral-section">
+            <div class="referral-title">🤝 Referral Program</div>
+            
+            <div class="referral-box">
+                <div class="referral-link-box" id="referralLink">
+                    https://nova.xyz/ref/ABDUL123
+                </div>
+                
+                <div class="referral-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">Referrals</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">$234</div>
+                        <div class="stat-label">Earned</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">10%</div>
+                        <div class="stat-label">Commission</div>
+                    </div>
+                </div>
+                
+                <button class="copy-btn" onclick="copyReferral()">📋 Copy Referral Link</button>
+                
+                <div class="success-message" id="copySuccess">
+                    ✅ Link copied to clipboard!
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="activity-section">
+            <div class="section-title">
+                📋 Recent Activity
+            </div>
+            
+            <div class="activity-item">
+                <div class="activity-info">
+                    <h4>Withdrawal requested</h4>
+                    <div class="activity-time">$500 • 2 min ago</div>
+                </div>
+                <div class="activity-status">⏳</div>
+            </div>
+
+            <div class="activity-item">
+                <div class="activity-info">
+                    <h4>Referral bonus earned</h4>
+                    <div class="activity-time">$50 • 1 hour ago</div>
+                </div>
+                <div class="activity-status">✅</div>
+            </div>
+
+            <div class="activity-item">
+                <div class="activity-info">
+                    <h4>Stake reward claimed</h4>
+                    <div class="activity-time">$23.45 • 3 hours ago</div>
+                </div>
+                <div class="activity-status">💰</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Nav -->
+    <div class="nav">
+        <div class="nav-item"><span>🏠</span>Home</div>
+        <div class="nav-item"><span>🥩</span>Stake</div>
+        <div class="nav-item"><span>💰</span>Earn</div>
+        <div class="nav-item"><span>📦</span>Reserve</div>
+        <div class="nav-item active"><span>👤</span>My</div>
+    </div>
+
+    <script>
+        // Go Back
+        function goBack() {
+            alert('Going back...');
+        }
+
+        // Withdraw Function
+        function withdrawFunds() {
+            let amount = document.getElementById('withdrawAmount').value;
+            let method = document.getElementById('withdrawMethod').value;
+            let address = document.getElementById('withdrawAddress').value;
+            
+            // Validation
+            if (!amount || amount <= 0) {
+                alert("❌ Please enter valid amount");
+                return;
+            }
+            
+            if (!method) {
+                alert("❌ Please select network");
+                return;
+            }
+            
+            if (!address) {
+                alert("❌ Please enter wallet address");
+                return;
+            }
+            
+            // Show success message
+            let successMsg = document.getElementById('withdrawSuccess');
+            successMsg.style.display = 'block';
+            
+            // Show alert
+            alert(`✅ Withdrawal of $${amount} requested!\nNetwork: ${method}\nAddress: ${address}`);
+            
+            // Clear form
+            document.getElementById('withdrawAmount').value = '';
+            document.getElementById('withdrawMethod').value = '';
+            document.getElementById('withdrawAddress').value = '';
+            
+            // Hide message after 3 seconds
+            setTimeout(() => {
+                successMsg.style.display = 'none';
+            }, 3000);
+        }
+
+        // Copy Referral Link
+        function copyReferral() {
+            let link = document.getElementById('referralLink').innerText;
+            
+            // Copy to clipboard
+            navigator.clipboard.writeText(link).then(() => {
+                // Show success message
+                let copyMsg = document.getElementById('copySuccess');
+                copyMsg.style.display = 'block';
+                
+                // Hide after 3 seconds
+                setTimeout(() => {
+                    copyMsg.style.display = 'none';
+                }, 3000);
+                
+                alert('✅ Referral link copied!');
+            }).catch(() => {
+                alert('❌ Failed to copy');
+            });
+        }
+    </script>
+</body>
+</html>
