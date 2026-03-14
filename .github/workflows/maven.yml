@@ -1,0 +1,514 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOVA NFT - Complete App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, sans-serif;
+        }
+        body {
+            background: #0a0f1e;
+            color: white;
+            padding: 10px 10px 70px 10px;
+        }
+        .app {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #2a3a5a;
+            margin-bottom: 20px;
+        }
+        .back { color: gold; font-size: 24px; cursor: pointer; }
+        .title { color: gold; font-size: 22px; font-weight: bold; }
+
+        /* Navigation Tabs */
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            background: #1e2a47;
+            padding: 10px;
+            border-radius: 30px;
+        }
+        .nav-tab {
+            flex: 1;
+            text-align: center;
+            padding: 8px;
+            border-radius: 20px;
+            color: #8a9bb5;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .nav-tab.active {
+            background: gold;
+            color: black;
+            font-weight: bold;
+        }
+
+        /* Section */
+        .section {
+            background: #1e2a47;
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            border: 1px solid gold;
+        }
+        .section-title {
+            color: gold;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .section-link { color: #4a90e2; font-size: 13px; cursor: pointer; }
+
+        /* Grid */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        /* Cards */
+        .card {
+            background: #2a3a5a;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid #3a4a6a;
+        }
+        .card-title { color: gold; font-size: 14px; font-weight: bold; margin-bottom: 5px; }
+        .card-value { color: white; font-size: 18px; font-weight: bold; }
+        .card-label { color: #8a9bb5; font-size: 11px; }
+
+        /* Stats */
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #2a3a5a;
+        }
+        .stat-label { color: #8a9bb5; }
+        .stat-value { color: gold; }
+
+        /* Buttons */
+        .btn {
+            background: gold;
+            color: black;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: bold;
+            width: 100%;
+            cursor: pointer;
+            margin: 5px 0;
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid gold;
+            color: gold;
+        }
+
+        /* Withdraw Section */
+        .withdraw-section {
+            background: #1e2a47;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 2px solid #ff6b6b;
+        }
+        .withdraw-title { color: #ff6b6b; font-size: 18px; font-weight: bold; margin-bottom: 15px; }
+        .withdraw-input {
+            width: 100%;
+            padding: 15px;
+            background: #2a3a5a;
+            border: 1px solid #3a4a6a;
+            border-radius: 10px;
+            color: white;
+            margin-bottom: 12px;
+        }
+        .withdraw-btn {
+            width: 100%;
+            padding: 15px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Referral Section */
+        .referral-section {
+            background: #1e2a47;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 2px solid gold;
+        }
+        .referral-link-box {
+            background: #2a3a5a;
+            padding: 15px;
+            border-radius: 10px;
+            color: #4a90e2;
+            word-break: break-all;
+            margin: 15px 0;
+            text-align: center;
+        }
+        .referral-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+        .stat-number { color: gold; font-size: 24px; font-weight: bold; }
+        .copy-btn {
+            background: gold;
+            color: black;
+            border: none;
+            padding: 15px;
+            border-radius: 30px;
+            font-weight: bold;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        /* Stake Cards */
+        .stake-card {
+            background: #2a3a5a;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            border-left: 4px solid gold;
+        }
+        .stake-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 5px 0;
+        }
+        .stake-status { color: #4caf50; }
+
+        /* Chart */
+        .chart-bars {
+            display: flex;
+            align-items: flex-end;
+            gap: 8px;
+            height: 100px;
+            margin: 20px 0;
+        }
+        .bar {
+            flex: 1;
+            background: gold;
+            border-radius: 5px 5px 0 0;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            max-width: 400px;
+            margin: 0 auto;
+            background: #1e2a47;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+            border-top: 2px solid gold;
+        }
+        .nav-item {
+            text-align: center;
+            color: #8a9bb5;
+            font-size: 11px;
+            cursor: pointer;
+        }
+        .nav-item.active { color: gold; }
+        .nav-item span { display: block; font-size: 18px; }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <!-- Header -->
+        <div class="header">
+            <span class="back" onclick="goBack()">←</span>
+            <div class="title">NOVA NFT</div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <div class="nav-tab active" onclick="showPage('home')">🏠 Home</div>
+            <div class="nav-tab" onclick="showPage('stake')">🥩 Stake</div>
+            <div class="nav-tab" onclick="showPage('earn')">💰 Earn</div>
+            <div class="nav-tab" onclick="showPage('reserve')">📦 Reserve</div>
+            <div class="nav-tab" onclick="showPage('my')">👤 My</div>
+        </div>
+
+        <!-- HOME PAGE -->
+        <div id="home-page">
+            <div class="section">
+                <div class="section-title">
+                    📊 Dashboard
+                    <span class="section-link">Details →</span>
+                </div>
+                <div class="grid-2">
+                    <div class="card"><div class="card-label">Total Value</div><div class="card-value">$45.2K</div></div>
+                    <div class="card"><div class="card-label">Profit</div><div class="card-value">+12.5%</div></div>
+                    <div class="card"><div class="card-label">NFTs</div><div class="card-value">156</div></div>
+                    <div class="card"><div class="card-label">Active</div><div class="card-value">23</div></div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">
+                    🔥 Trending NFTs
+                    <span class="section-link">View All →</span>
+                </div>
+                <div class="grid-3">
+                    <div class="card" style="text-align: center;"><div style="font-size: 30px;">🐧</div><div>Penguin</div><div style="color: gold;">$8.6K</div></div>
+                    <div class="card" style="text-align: center;"><div style="font-size: 30px;">🐕</div><div>PixelDog</div><div style="color: gold;">$2.2K</div></div>
+                    <div class="card" style="text-align: center;"><div style="font-size: 30px;">🐯</div><div>Tiger</div><div style="color: gold;">$8.2K</div></div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">📈 Market Stats</div>
+                <div class="stat-row"><span>Total Volume</span><span class="stat-value">$1.2M</span></div>
+                <div class="stat-row"><span>24h Volume</span><span class="stat-value">$234K</span></div>
+                <div class="stat-row"><span>Active Users</span><span class="stat-value">1,247</span></div>
+            </div>
+        </div>
+
+        <!-- STAKE PAGE -->
+        <div id="stake-page" style="display: none;">
+            <div class="section">
+                <div class="section-title">🥩 Exclusive Stakes</div>
+                
+                <div class="stake-card">
+                    <div style="font-weight: bold; color: gold;">Exclusive Stake 1</div>
+                    <div class="stake-row"><span>Status</span><span class="stake-status">Open</span></div>
+                    <div class="stake-row"><span>Range</span><span>199-1000</span></div>
+                    <div class="stake-row"><span>Income</span><span class="stake-status">1.5%</span></div>
+                    <div class="stake-row"><span>Fee</span><span style="color: #ff6b6b;">1%</span></div>
+                    <button class="btn" style="margin-top: 10px;">Stake Now</button>
+                </div>
+
+                <div class="stake-card">
+                    <div style="font-weight: bold; color: gold;">Exclusive Stake 2</div>
+                    <div class="stake-row"><span>Status</span><span class="stake-status">Open</span></div>
+                    <div class="stake-row"><span>Range</span><span>499-2000</span></div>
+                    <div class="stake-row"><span>Income</span><span class="stake-status">1.8%</span></div>
+                    <div class="stake-row"><span>Fee</span><span style="color: #ff6b6b;">1%</span></div>
+                    <button class="btn" style="margin-top: 10px;">Stake Now</button>
+                </div>
+
+                <div class="stake-card">
+                    <div style="font-weight: bold; color: gold;">Exclusive Stake 3</div>
+                    <div class="stake-row"><span>Status</span><span class="stake-status">Open</span></div>
+                    <div class="stake-row"><span>Range</span><span>799-3000</span></div>
+                    <div class="stake-row"><span>Income</span><span class="stake-status">2.1%</span></div>
+                    <div class="stake-row"><span>Fee</span><span style="color: #ff6b6b;">1%</span></div>
+                    <button class="btn" style="margin-top: 10px;">Stake Now</button>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">📊 My Stakes</div>
+                <div class="stat-row"><span>Total Staked</span><span class="stat-value">$2.56K</span></div>
+                <div class="stat-row"><span>Pending Rewards</span><span class="stat-value">$23.45</span></div>
+            </div>
+        </div>
+
+        <!-- EARN PAGE -->
+        <div id="earn-page" style="display: none;">
+            <div class="section">
+                <div class="section-title">💰 Earning Plans</div>
+                
+                <div class="stake-card">
+                    <div style="font-weight: bold; color: gold;">Mahadev100</div>
+                    <div class="stake-row"><span>Amount</span><span>100</span></div>
+                    <div class="stake-row"><span>Daily Income</span><span class="stake-status">1.5%</span></div>
+                    <div class="stake-row"><span>Days</span><span>3 year</span></div>
+                    <button class="btn-outline btn" style="margin-top: 10px;">Start Earning</button>
+                </div>
+
+                <div class="stake-card">
+                    <div style="font-weight: bold; color: gold;">Mahadev1000</div>
+                    <div class="stake-row"><span>Amount</span><span>1000</span></div>
+                    <div class="stake-row"><span>Daily Income</span><span class="stake-status">1.6%</span></div>
+                    <div class="stake-row"><span>Days</span><span>5 year</span></div>
+                    <button class="btn-outline btn" style="margin-top: 10px;">Start Earning</button>
+                </div>
+
+                <div class="stake-card">
+                    <div style="font-weight: bold; color: gold;">Mahadev10000</div>
+                    <div class="stake-row"><span>Amount</span><span>10000</span></div>
+                    <div class="stake-row"><span>Daily Income</span><span class="stake-status">1.8%</span></div>
+                    <div class="stake-row"><span>Days</span><span>5 year</span></div>
+                    <button class="btn-outline btn" style="margin-top: 10px;">Start Earning</button>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">📈 My Earnings</div>
+                <div class="stat-row"><span>Today</span><span class="stat-value">$7.49</span></div>
+                <div class="stat-row"><span>Total</span><span class="stat-value">$197.72</span></div>
+            </div>
+        </div>
+
+        <!-- RESERVE PAGE -->
+        <div id="reserve-page" style="display: none;">
+            <div class="section">
+                <div class="section-title">📦 Reserve Stats</div>
+                
+                <div class="grid-2">
+                    <div class="card"><div class="card-label">Today</div><div class="card-value">$7.49</div></div>
+                    <div class="card"><div class="card-label">Cumulative</div><div class="card-value">$116.51</div></div>
+                </div>
+
+                <div class="chart-bars">
+                    <div class="bar" style="height:40px;"></div>
+                    <div class="bar" style="height:60px;"></div>
+                    <div class="bar" style="height:80px;"></div>
+                    <div class="bar" style="height:50px;"></div>
+                    <div class="bar" style="height:90px;"></div>
+                    <div class="bar" style="height:70px;"></div>
+                    <div class="bar" style="height:100px;"></div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">🎯 Reservation</div>
+                <div class="stat-row"><span>Range</span><span class="stat-value">1 ~ 1,000</span></div>
+                <div class="stat-row"><span>Balance</span><span class="stat-value">$345.72</span></div>
+                <button class="btn" style="margin-top: 10px;">Reserve Now</button>
+            </div>
+
+            <div class="section">
+                <div class="section-title">📋 Order Info</div>
+                <div class="stat-row"><span>Order No.</span><span class="stat-value">R4367358165381</span></div>
+                <div class="stat-row"><span>Date</span><span class="stat-value">2026/03/14</span></div>
+                <div class="stat-row"><span>Amount</span><span class="stat-value">50-1000</span></div>
+            </div>
+        </div>
+
+        <!-- MY PAGE (Profile) -->
+        <div id="my-page" style="display: none;">
+            <!-- Profile Card -->
+            <div class="section" style="text-align: center;">
+                <div style="font-size: 60px;">👤</div>
+                <div class="card-title" style="font-size: 22px;">abduljan</div>
+                <div style="color: #8a9bb5; margin: 5px 0;">UID: M0W5P3R87</div>
+                <div style="background: #2a3a5a; padding: 5px 15px; border-radius: 20px; display: inline-block;">Level 1 • 190 Points</div>
+            </div>
+
+            <!-- Balance Cards -->
+            <div class="grid-2">
+                <div class="card"><div class="card-label">Wallet</div><div class="card-value">$345.72</div></div>
+                <div class="card"><div class="card-label">Locked</div><div class="card-value">$21.5K</div></div>
+                <div class="card"><div class="card-label">Earned</div><div class="card-value">$197.72</div></div>
+                <div class="card"><div class="card-label">Staked</div><div class="card-value">$2.56K</div></div>
+            </div>
+
+            <!-- Withdraw Section -->
+            <div class="withdraw-section">
+                <div class="withdraw-title">💰 Withdraw Funds</div>
+                <input type="number" class="withdraw-input" placeholder="Amount (USD)">
+                <select class="withdraw-input">
+                    <option>Select Network</option>
+                    <option>BEP20 (BSC)</option>
+                    <option>TRC20 (TRON)</option>
+                    <option>SOLANA</option>
+                </select>
+                <input type="text" class="withdraw-input" placeholder="Wallet Address">
+                <button class="withdraw-btn">Process Withdrawal</button>
+            </div>
+
+            <!-- Referral Section -->
+            <div class="referral-section">
+                <div class="referral-title">🤝 Referral Program</div>
+                <div class="referral-link-box">https://nova.xyz/ref/ABDUL123</div>
+                <div class="referral-stats">
+                    <div><div class="stat-number">5</div><div style="color:#8a9bb5;">Referrals</div></div>
+                    <div><div class="stat-number">$234</div><div style="color:#8a9bb5;">Earned</div></div>
+                    <div><div class="stat-number">10%</div><div style="color:#8a9bb5;">Commission</div></div>
+                </div>
+                <button class="copy-btn">📋 Copy Link</button>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="section">
+                <div class="section-title">📋 Recent Activity</div>
+                <div class="stat-row"><span>Withdrawal</span><span>$500 • 2m ago</span></div>
+                <div class="stat-row"><span>Referral</span><span>$50 • 1h ago</span></div>
+                <div class="stat-row"><span>Stake</span><span>$23.45 • 3h ago</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <div class="nav-item active" onclick="showPage('home')"><span>🏠</span>Home</div>
+        <div class="nav-item" onclick="showPage('stake')"><span>🥩</span>Stake</div>
+        <div class="nav-item" onclick="showPage('earn')"><span>💰</span>Earn</div>
+        <div class="nav-item" onclick="showPage('reserve')"><span>📦</span>Reserve</div>
+        <div class="nav-item" onclick="showPage('my')"><span>👤</span>My</div>
+    </div>
+
+    <script>
+        function showPage(page) {
+            // Hide all pages
+            document.getElementById('home-page').style.display = 'none';
+            document.getElementById('stake-page').style.display = 'none';
+            document.getElementById('earn-page').style.display = 'none';
+            document.getElementById('reserve-page').style.display = 'none';
+            document.getElementById('my-page').style.display = 'none';
+            
+            // Show selected page
+            document.getElementById(page + '-page').style.display = 'block';
+            
+            // Update active tab
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+            
+            if (page === 'home') {
+                document.querySelectorAll('.nav-item')[0].classList.add('active');
+                document.querySelectorAll('.nav-tab')[0].classList.add('active');
+            } else if (page === 'stake') {
+                document.querySelectorAll('.nav-item')[1].classList.add('active');
+                document.querySelectorAll('.nav-tab')[1].classList.add('active');
+            } else if (page === 'earn') {
+                document.querySelectorAll('.nav-item')[2].classList.add('active');
+                document.querySelectorAll('.nav-tab')[2].classList.add('active');
+            } else if (page === 'reserve') {
+                document.querySelectorAll('.nav-item')[3].classList.add('active');
+                document.querySelectorAll('.nav-tab')[3].classList.add('active');
+            } else if (page === 'my') {
+                document.querySelectorAll('.nav-item')[4].classList.add('active');
+                document.querySelectorAll('.nav-tab')[4].classList.add('active');
+            }
+        }
+
+        function goBack() {
+            alert('Going back...');
+        }
+    </script>
+</body>
+</html>
